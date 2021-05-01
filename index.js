@@ -8,11 +8,11 @@ function domRemove(id) {
 const app = new Vue({
     el: '#app',
     router: router,
-
+    data: data,
+    // store: store,
     created: function () {
         domRemove('seo');
     },
-
     methods: {
         aTag: function (event) {
             event.preventDefault();
@@ -20,7 +20,13 @@ const app = new Vue({
             var uris = uri.split('/');
             uris.shift();
             var url = '/' + uris.join('/');
+
+            data.obj.url = url;
+
             this.$router.push(url);
+        },
+        updateVars: function() {
+            data.user = "Go!";
         }
     }
 });

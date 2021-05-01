@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
+    <style>
+        .menus a { display: inline-block; background-color: #dfdfdf; padding: 1em;}
+    </style>
 </head>
 <body>
 <div id="app">
@@ -16,13 +19,15 @@
             아래 처럼 A 태그의 href 에 직접 링크를 주어서 SEO 로 동작하게 할 수 있다. route-link 는 DOM 에서만 A 태그로 변환될 뿐, HTML 에서는
             그대로 router-link 로 표기되어 검색 로봇이 인식을 하지 못한다.
         </div>
-        <router-link to="/foo">Go to Foo</router-link>
-        <router-link to="/bar">Go to Bar</router-link>
-        <router-link to="/user/1234">Go to user</router-link>
-        <a href="/user/1234" @click="aTag($event)">Go to user (2)</a>
+        <div class="menus">
+            <router-link to="/foo">Go to Foo</router-link>
+            <router-link to="/bar">Go to Bar</router-link>
+            <router-link to="/user/1234">Go to user</router-link>
+            <a href="/user/thruthesky" @click="aTag($event)">Go to user (2)</a>
+        </div>
     </section>
     <div>
-        router-view 는 URL 에 매치되는 컴포넌트가 보인다.
+        router-view 는 URL 에 매치되는 컴포넌트가 보인다. 메뉴는 일반 HTML 로 디자인하고, router 이동에 따라 해당 컴포넌트를 router-view 에 보여주면 된다.
         이 때, 첫 페이지 또는 게시글 페이지에서 검색엔진에 색인시키고자 하는 내용을 div.main 안에 넣어주면 된다.
         검색 로봇은 Vue.js 코드를 인식하지 못하는데, 웹 브라우저가 Vue.js 를 로드 할 때, created() 에서 div#seo 을 없애주면 된다.
     </div>
@@ -31,12 +36,20 @@
         <p>색인 될 내용</p>
     </div>
     <div style="border: 1px solid grey; padding: 1em;">
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
+        <hr>
+
+        <button @click="updateVars">Update Vars</button>
+        <button @click="data.count++">Increase</button>
+
+        <div>
+                {{ data }} : {{ data.count }}
     </div>
 </div>
 
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.min.js"></script>
+<script src="data.js"></script>
 <script src="components.js"></script>
 <script src="routes.js"></script>
 <script src="index.js"></script>
