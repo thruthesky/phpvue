@@ -16,12 +16,10 @@ const app = new Vue({
     methods: {
         aTag: function (event) {
             event.preventDefault();
-            console.log('aTag', event.target.href);
             var uri = event.target.href.split('//')[1];
             var uris = uri.split('/');
             uris.shift();
             var url = '/' + uris.join('/');
-            console.log('url: ', url);
             this.$router.push(url);
         }
     }
